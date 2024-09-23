@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model admin {
+  id         Int       @id @default(autoincrement())
+  nama       String?   @db.VarChar(255)
+  email      String?   @db.VarChar(255)
+  password   String?   @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+model foodRecordDetails {
+  id           Int          @id @default(autoincrement())
+  foodRecordId Int?
+  foodId       Int?
+  porsi        Int?
+  created_at   DateTime?    @db.Timestamp(0)
+  updated_at   DateTime?    @db.Timestamp(0)
+  foodRecords  foodRecords? @relation(fields: [foodRecordId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "foodRecordDetails_ibfk_1")
+  foods        foods?       @relation(fields: [foodId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "foodRecordDetails_ibfk_2")
+
+  @@index([foodId], map: "foodId")
+  @@index([foodRecordId], map: "foodRecordId")
+}
+
+model foodRecords {
+  id                Int                 @id @default(autoincrement())
+  tanggalRecord     DateTime?           @db.Date
+  userId            Int?
+  created_at        DateTime?           @db.Timestamp(0)
+  updated_at        DateTime?           @db.Timestamp(0)
+  foodRecordDetails foodRecordDetails[]
+  users             users?              @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "foodRecords_ibfk_1")
+
+  @@index([userId], map: "userId")
+}
+
+model foods {
+  id                Int                 @id @default(autoincrement())
+  nama              String?             @db.VarChar(255)
+  kadarGula         String?             @db.VarChar(255)
+  jenisMakanan      String?             @db.VarChar(255)
+  created_at        DateTime?           @db.Timestamp(0)
+  updated_at        DateTime?           @db.Timestamp(0)
+  foodRecordDetails foodRecordDetails[]
+}
+
+model users {
+  id           Int           @id @default(autoincrement())
+  nama         String?       @db.VarChar(255)
+  email        String?       @db.VarChar(255)
+  password     String?       @db.VarChar(255)
+  tanggalLahir DateTime?     @db.Date
+  jenisKelamin String?       @db.VarChar(255)
+  beratBadan   Int?
+  tinggiBadan  Int?
+  created_at   DateTime?     @db.Timestamp(0)
+  updated_at   DateTime?     @db.Timestamp(0)
+  foodRecords  foodRecords[]
+}
