@@ -1,0 +1,19 @@
+-- AlterTable
+ALTER TABLE `admin` MODIFY `created_at` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `updated_at` DATETIME(3) NULL;
+
+-- AlterTable
+ALTER TABLE `foodRecordDetails` MODIFY `created_at` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `updated_at` DATETIME(3) NULL;
+
+-- AlterTable
+ALTER TABLE `foodRecords` MODIFY `created_at` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `updated_at` DATETIME(3) NULL;
+
+-- AlterTable
+ALTER TABLE `foods` MODIFY `created_at` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `updated_at` DATETIME(3) NULL;
+
+-- AlterTable
+ALTER TABLE `users` MODIFY `created_at` DATETIME(3) NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `updated_at` DATETIME(3) NULL;
